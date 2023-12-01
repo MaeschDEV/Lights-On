@@ -10,11 +10,17 @@ public class GameManager : MonoBehaviour
     //Private & Visible in Editor
     [SerializeField] private GameObject segment;
     [SerializeField] private float segmentWidth;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private background backgroundObject;
+    [SerializeField] private camera cameraObject;
 
     private void Start()
     {
-        GenerateField(5, 5);
+        GenerateField(width, height);
         SpawnSegments();
+        backgroundObject.resizeBackground(width, height);
+        cameraObject.relocateCamera(width, height);
     }
 
     private void GenerateField(int pWidth, int pHeight)
@@ -33,5 +39,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("i:" + i + " | j: " + j + " | Pos: " + field[i, j].transform.position + " | State: " + field[i, j].GetComponent<segment>().getState());
             }
         }
+    }
+
+    public GameObject[,] getField()
+    {
+        return field;
     }
 }
