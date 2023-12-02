@@ -21,7 +21,13 @@ public class segment : MonoBehaviour
         }
     }
 
-    public void changeState(bool pSegmentEnabled)
+    public void changeState()
+    {
+        segmentEnabled = !segmentEnabled;
+        stateChanged();
+    }
+
+    public void changeStateSpecific(bool pSegmentEnabled)
     {
         segmentEnabled = pSegmentEnabled;
         stateChanged();
