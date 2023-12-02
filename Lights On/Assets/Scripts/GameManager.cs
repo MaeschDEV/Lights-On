@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -39,6 +37,11 @@ public class GameManager : MonoBehaviour
                 Debug.Log("i:" + i + " | j: " + j + " | Pos: " + field[i, j].transform.position + " | State: " + field[i, j].GetComponent<segment>().getState());
             }
         }
+    }
+
+    private void logic()
+    {
+
     }
 
     public GameObject[,] getField()
