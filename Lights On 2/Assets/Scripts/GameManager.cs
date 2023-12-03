@@ -53,10 +53,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         logic();
-        float current = 0;
-        current = Time.frameCount / Time.time;
-        avgFrameRate = (int)current;
-        textMeshProUGUI.text = avgFrameRate.ToString();
+        DisplayFPS();
     }
 
     private void logic()
@@ -106,6 +103,14 @@ public class GameManager : MonoBehaviour
                 field[x, y].GetComponent<segment>().changeState();
             }
         }
+    }
+
+    private void DisplayFPS()
+    {
+        float current = 0;
+        current = Time.frameCount / Time.time;
+        avgFrameRate = (int)current;
+        textMeshProUGUI.text = avgFrameRate.ToString();
     }
 
     public GameObject[,] getField()
