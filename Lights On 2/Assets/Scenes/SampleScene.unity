@@ -262,7 +262,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.13428265, g: 0.6331443, b: 0.7735849, a: 0}
+  m_BackGroundColor: {r: 0, g: 0.5372549, b: 0.7294118, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -375,12 +375,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segment: {fileID: 2228551824234977057, guid: 76479114678431648817e84d58d3d705, type: 3}
-  segmentWidth: 1
-  width: 5
-  height: 5
   backgroundObject: {fileID: 1843869504}
   cameraObject: {fileID: 519420033}
   textMeshProUGUI: {fileID: 1497436961}
+  segmentWidth: 1
+  width: 4
+  height: 4
+  spawnDelay: 0.05
 --- !u!1 &1497436959
 GameObject:
   m_ObjectHideFlags: 0

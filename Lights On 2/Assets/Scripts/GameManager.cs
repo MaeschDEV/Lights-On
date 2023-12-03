@@ -1,22 +1,28 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     //Private
-    private GameObject[,] field;
+    private GameObject[,] field = new GameObject[0, 0];
     private bool alreadyPressed = false;
-    private Vector2 worldPosition;
-    private int avgFrameRate;
+    private Vector2 worldPosition = Vector2.zero;
+    private int avgFrameRate = 0;
+    private bool canTouch = false;
 
     //Private & Visible in Editor
+    [Header("References")]
     [SerializeField] private GameObject segment;
-    [SerializeField] private float segmentWidth;
-    [SerializeField] private int width;
-    [SerializeField] private int height;
     [SerializeField] private background backgroundObject;
     [SerializeField] private camera cameraObject;
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
+
+    [Header("Values")]
+    [SerializeField] private float segmentWidth;
+    [SerializeField] private int width;
+    [SerializeField] private int height;
+    [SerializeField] private float spawnDelay;
 
     private void Start()
     {
@@ -25,6 +31,7 @@ public class GameManager : MonoBehaviour
         SpawnSegments();
         backgroundObject.resizeBackground(width, height);
         cameraObject.relocateCamera(width, height);
+        StartCoroutine(ScrambleVisual(10, 20));
     }
 
     private void setFPS()
@@ -44,10 +51,26 @@ public class GameManager : MonoBehaviour
             for(int j = 0; j < field.GetLength(1); j++)
             {
                 field[i, j] = Instantiate(segment, new Vector2(i * segmentWidth, j * segmentWidth), Quaternion.identity);
-                field[i, j].GetComponent<segment>().changeStateSpecific(true);
+                field[i, j].GetComponent<segment>().changeStateSpecific(false);
                 Debug.Log("i:" + i + " | j: " + j + " | Pos: " + field[i, j].transform.position + " | State: " + field[i, j].GetComponent<segment>().getState());
             }
         }
+    }
+
+    IEnumerator ScrambleVisual(int minAmountScrambles, int maxAmountScrambles)
+    {
+        canTouch = false;
+        int randomAmount = Random.Range(minAmountScrambles, maxAmountScrambles);
+
+        for (int i = 0; i < randomAmount; i++)
+        {
+            yield return new WaitForSeconds(spawnDelay);
+            int randomX = Random.Range(0, field.GetLength(0));
+            int randomY = Random.Range(0, field.GetLength(1));
+
+            ChangeState(randomX, randomY);
+        }
+        canTouch = true;
     }
 
     private void Update()
@@ -58,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     private void logic()
     {
-        if(Input.touchCount > 0 && !alreadyPressed)
+        if(Input.touchCount > 0 && !alreadyPressed && canTouch)
         {
             alreadyPressed = true;
             Touch touch = Input.GetTouch(0);

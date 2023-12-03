@@ -12,3 +12,9 @@ Palette:
 #0089BA
 #008E9B
 #008F7A
+
+Segment On:
+#FFC75F
+
+Segment Off:
+#806430
