@@ -170,4 +170,9 @@ public class GameManager : MonoBehaviour
     {
         return field;
     }
+
+    public void setCanTouch(bool pCanTouch)
+    {
+        canTouch = pCanTouch;
+    }
 }

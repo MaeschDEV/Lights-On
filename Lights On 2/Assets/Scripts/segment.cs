@@ -6,6 +6,7 @@ public class segment : MonoBehaviour
     private bool segmentEnabled;
 
     //Private & Visible in Editor
+    [Header("References")]
     [SerializeField] private Sprite frameOn;
     [SerializeField] private Sprite frameOff;
 
