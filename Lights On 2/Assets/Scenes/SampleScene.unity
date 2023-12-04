@@ -379,8 +379,8 @@ MonoBehaviour:
   cameraObject: {fileID: 519420033}
   textMeshProUGUI: {fileID: 1497436961}
   segmentWidth: 1
-  width: 6
-  height: 5
+  width: 4
+  height: 4
   spawnDelay: 0.05
 --- !u!1 &1497436959
 GameObject:

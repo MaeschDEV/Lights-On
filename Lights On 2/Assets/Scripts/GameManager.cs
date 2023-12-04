@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     private Vector2 worldPosition = Vector2.zero;
     private int avgFrameRate = 0;
     private bool canTouch = false;
+    private bool hasWon = false;
 
     //Private & Visible in Editor
     [Header("References")]
@@ -126,6 +127,7 @@ public class GameManager : MonoBehaviour
                 field[x, y].GetComponent<segment>().changeState();
             }
         }
+        CheckBoard();
     }
 
     private void DisplayFPS()
@@ -134,6 +136,34 @@ public class GameManager : MonoBehaviour
         current = Time.frameCount / Time.time;
         avgFrameRate = (int)current;
         textMeshProUGUI.text = avgFrameRate.ToString();
+    }
+
+    private void CheckBoard()
+    {
+        hasWon = true;
+        for (int i = 0; i < field.GetLength(0); i++)
+        {
+            for (int j = 0; j < field.GetLength(1); j++)
+            {
+                if (field[i, j].GetComponent<segment>().getState())
+                {
+                    //This Segment is On!
+                    //Player hasn't won yet!
+                    hasWon = false;
+                    break;
+                }
+                else
+                {
+                    //This Segment is Off!
+                }
+            }
+        }
+
+        if(hasWon)
+        {
+            canTouch = false;
+            Debug.Log("You Won!");
+        }
     }
 
     public GameObject[,] getField()
