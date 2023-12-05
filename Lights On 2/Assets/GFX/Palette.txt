@@ -16,5 +16,8 @@ Palette:
 Segment On:
 #FFC75F
 
+Between:
+#bf9547
+
 Segment Off:
 #806430
