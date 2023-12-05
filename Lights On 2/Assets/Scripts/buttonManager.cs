@@ -10,17 +10,18 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private GameManager manager;
     [SerializeField] private GameObject PauseBtn;
 
-    private void TogglePauseBtn()
+    public void TogglePauseBtn()
     {
         if(PauseBtnActive)
         {
             //PausenMenu is on, the game should go on
             PauseBtnActive = false;
+            manager.setCanTouch(false);
             PauseBtn.GetComponent<Animator>().SetTrigger("SwapToPause");
         }
         else
         {
-            //Game ís running, the pause menu should appear
+            //Game is running, the pause menu should appear
             PauseBtnActive = true;
             PauseBtn.GetComponent<Animator>().SetTrigger("SwapToPlay");
         }
