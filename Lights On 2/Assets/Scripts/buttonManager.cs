@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class buttonManager : MonoBehaviour
 {
@@ -27,5 +28,11 @@ public class buttonManager : MonoBehaviour
             manager.setCanTouch(true);
             PauseMenu.SetActive(true);
         }
+    }
+
+    public void RestartGame()
+    {
+        PlayerPrefs.SetInt("Restarted", 1);
+        SceneManager.LoadScene(0);
     }
 }

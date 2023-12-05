@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     private int avgFrameRate = 0;
     private bool canTouch = false;
     private bool hasWon = false;
+    private float time;
 
     //Private & Visible in Editor
     [Header("References")]
@@ -24,20 +25,42 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int width;
     [SerializeField] private int height;
     [SerializeField] private float spawnDelay;
+    [SerializeField] private bool TimeRush;
+    [SerializeField] private float maxTime;
+    [SerializeField] private int maxTries;
 
     private void Start()
     {
         setFPS();
-        GenerateField(width, height);
-        SpawnSegments();
-        backgroundObject.resizeBackground(width, height);
-        cameraObject.relocateCamera(width, height);
-        StartCoroutine(ScrambleVisual(10, 20));
+        CheckIfRestarted();
+        
     }
 
     private void setFPS()
     {
         Application.targetFrameRate = 60;
+    }
+
+    private void CheckIfRestarted()
+    {
+        if(PlayerPrefs.GetInt("Restarted", 0) == 1)
+        {
+            //Game got Restarted, load previous board
+            PlayerPrefs.SetInt("Restarted", 0);
+            GenerateField(PlayerPrefs.GetInt("pWidth", 4), PlayerPrefs.GetInt("pHeight", 4));
+            LoadOldBoard();
+            backgroundObject.resizeBackground(PlayerPrefs.GetInt("pWidth", 4), PlayerPrefs.GetInt("pHeight", 4));
+            cameraObject.relocateCamera(PlayerPrefs.GetInt("pWidth", 4), PlayerPrefs.GetInt("pHeight", 4));
+        }
+        else
+        {
+            //Game didn't got restarted, generate new board
+            GenerateField(width, height);
+            SpawnSegments();
+            backgroundObject.resizeBackground(width, height);
+            cameraObject.relocateCamera(width, height);
+            StartCoroutine(ScrambleVisual(10, 20));
+        }
     }
 
     private void GenerateField(int pWidth, int pHeight)
@@ -58,6 +81,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void LoadOldBoard()
+    {
+        canTouch = false;
+        for (int i = 0; i < field.GetLength(0); i++)
+        {
+            for (int j = 0; j < field.GetLength(1); j++)
+            {
+                if (PlayerPrefs.GetInt("Pos" + i + j) == 1)
+                {
+                    //Field is On
+                    //1 = On
+                    Debug.Log("Loaded: On " + i + " | " + j);
+                    field[i, j] = Instantiate(segment, new Vector2(i * segmentWidth, j * segmentWidth), Quaternion.identity);
+                    field[i, j].GetComponent<segment>().changeStateSpecific(true);
+                }
+                else
+                {
+                    //Field is Off
+                    //0 = Off
+                    Debug.Log("Saved: Off " + i + " | " + j);
+                    field[i, j] = Instantiate(segment, new Vector2(i * segmentWidth, j * segmentWidth), Quaternion.identity);
+                    field[i, j].GetComponent<segment>().changeStateSpecific(false);
+                }
+            }
+        }
+        canTouch = true;
+    }
+
     IEnumerator ScrambleVisual(int minAmountScrambles, int maxAmountScrambles)
     {
         canTouch = false;
@@ -72,12 +123,40 @@ public class GameManager : MonoBehaviour
             ChangeState(randomX, randomY);
         }
         canTouch = true;
+        SaveCurrentBoard(width, height);
+    }
+
+    private void SaveCurrentBoard(int pWidth, int pHeight)
+    {
+        PlayerPrefs.SetInt("pWidth", pWidth);
+        PlayerPrefs.SetInt("pHeight", pHeight);
+        for (int i = 0; i < field.GetLength(0); i++)
+        {
+            for (int j = 0; j < field.GetLength(1); j++)
+            {
+                if (field[i, j].GetComponent<segment>().getState())
+                {
+                    //Field is On
+                    //1 = On
+                    Debug.Log("Saved: On " + i + " | " + j);
+                    PlayerPrefs.SetInt("Pos" + i + j, 1);
+                }
+                else
+                {
+                    //Field is Off
+                    //0 = Off
+                    Debug.Log("Saved: Off " + i + " | " + j);
+                    PlayerPrefs.SetInt("Pos" + i + j, 0);
+                }
+            }
+        }
     }
 
     private void Update()
     {
+
         logic();
-        DisplayFPS();
+        //DisplayFPS();
     }
 
     private void logic()
@@ -163,6 +242,14 @@ public class GameManager : MonoBehaviour
         {
             canTouch = false;
             Debug.Log("You Won!");
+        }
+    }
+
+    private void GameMode()
+    {
+        if (TimeRush)
+        {
+
         }
     }
 
