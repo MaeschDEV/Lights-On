@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private int avgFrameRate = 0;
     private bool canTouch = false;
     private bool hasWon = false;
-    private float time;
+    private bool hasLost = false;
 
     //Private & Visible in Editor
     [Header("References")]
@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private background backgroundObject;
     [SerializeField] private camera cameraObject;
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] private GameObject VictoryMenu;
+    [SerializeField] private GameObject DefeatMenu;
 
     [Header("Values")]
     [SerializeField] private float segmentWidth;
@@ -27,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float spawnDelay;
     [SerializeField] private bool TimeRush;
     [SerializeField] private float maxTime;
-    [SerializeField] private int maxTries;
+    [SerializeField] private int maxMoves;
 
     private void Start()
     {
@@ -154,8 +156,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-
         logic();
+        GameMode();
         //DisplayFPS();
     }
 
@@ -207,6 +209,11 @@ public class GameManager : MonoBehaviour
             }
         }
         CheckBoard();
+
+        if(canTouch)
+        {
+            maxMoves--;
+        }
     }
 
     private void DisplayFPS()
@@ -240,8 +247,7 @@ public class GameManager : MonoBehaviour
 
         if(hasWon)
         {
-            canTouch = false;
-            Debug.Log("You Won!");
+            Victory();
         }
     }
 
@@ -249,8 +255,45 @@ public class GameManager : MonoBehaviour
     {
         if (TimeRush)
         {
-
+            UpdateTime();
+            textMeshProUGUI.text = "Time Left: " + (int)maxTime;
+            if(maxTime <= 0 && !hasLost)
+            {
+                Defeat();
+                hasLost = true;
+            }
         }
+        else
+        {
+            textMeshProUGUI.text = "Moves Left: " + maxMoves;
+            if (maxMoves <= 0 && !hasLost)
+            {
+                Defeat();
+                hasLost = true;
+            }
+        }
+    }
+
+    private void UpdateTime()
+    {
+        if(canTouch)
+        {
+            maxTime = maxTime -= Time.deltaTime;
+        }
+    }
+
+    private void Victory()
+    {
+        canTouch = false;
+        Debug.Log("You Won!");
+        VictoryMenu.SetActive(true);
+    }
+
+    private void Defeat()
+    {
+        canTouch = false;
+        Debug.Log("You Loose!");
+        DefeatMenu.SetActive(true);
     }
 
     public GameObject[,] getField()
