@@ -3,12 +3,13 @@ using UnityEngine;
 public class buttonManager : MonoBehaviour
 {
     //Private
-    bool PauseBtnActive = false;
+    private bool PauseBtnActive = false;
 
     //Private & Visible in Editor
     [Header("References")]
     [SerializeField] private GameManager manager;
     [SerializeField] private GameObject PauseBtn;
+    [SerializeField] private GameObject PauseMenu;
 
     public void TogglePauseBtn()
     {
@@ -17,13 +18,14 @@ public class buttonManager : MonoBehaviour
             //PausenMenu is on, the game should go on
             PauseBtnActive = false;
             manager.setCanTouch(false);
-            PauseBtn.GetComponent<Animator>().SetTrigger("SwapToPause");
+            PauseMenu.SetActive(false);
         }
         else
         {
             //Game is running, the pause menu should appear
             PauseBtnActive = true;
-            PauseBtn.GetComponent<Animator>().SetTrigger("SwapToPlay");
+            manager.setCanTouch(true);
+            PauseMenu.SetActive(true);
         }
     }
 }

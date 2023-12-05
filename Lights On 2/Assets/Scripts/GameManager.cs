@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         float current = 0;
         current = Time.frameCount / Time.time;
         avgFrameRate = (int)current;
-        textMeshProUGUI.text = avgFrameRate.ToString();
+        textMeshProUGUI.text = "FPS: " + avgFrameRate.ToString();
     }
 
     private void CheckBoard()
