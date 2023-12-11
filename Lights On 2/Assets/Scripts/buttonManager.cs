@@ -18,14 +18,14 @@ public class buttonManager : MonoBehaviour
         {
             //PausenMenu is on, the game should go on
             PauseBtnActive = false;
-            manager.setCanTouch(false);
+            manager.setCanTouch(true);
             PauseMenu.SetActive(false);
         }
         else
         {
             //Game is running, the pause menu should appear
             PauseBtnActive = true;
-            manager.setCanTouch(true);
+            manager.setCanTouch(false);
             PauseMenu.SetActive(true);
         }
     }
