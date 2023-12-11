@@ -35,4 +35,10 @@ public class buttonManager : MonoBehaviour
         PlayerPrefs.SetInt("Restarted", 1);
         SceneManager.LoadScene(0);
     }
+
+    public void NewGame()
+    {
+        PlayerPrefs.SetInt("Restarted", 0);
+        SceneManager.LoadScene(0);
+    }
 }

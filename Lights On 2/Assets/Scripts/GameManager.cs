@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     {
         setFPS();
         CheckIfRestarted();
-        
     }
 
     private void setFPS()
