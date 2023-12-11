@@ -21,3 +21,9 @@ Between:
 
 Segment Off:
 #806430
+
+Pause Button:
+#008F7A
+
+Pause Button Hightlight:
+00afbf
