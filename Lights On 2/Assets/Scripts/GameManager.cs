@@ -30,9 +30,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool TimeRush;
     [SerializeField] private float maxTime;
     [SerializeField] private int maxMoves;
+    [SerializeField] private int maxMovesMultiplier;
 
     private void Start()
     {
+        width = PlayerPrefs.GetInt("width");
+        height = PlayerPrefs.GetInt("height");
+        if(PlayerPrefs.GetInt("GameMode", 0) == 0) //0 = TimeRush, 1 = Counter
+        {
+            TimeRush = true;
+        }
+        else
+        {
+            TimeRush = false;
+        }
+        maxTime = PlayerPrefs.GetInt("time");
+        maxMovesMultiplier = PlayerPrefs.GetInt("multiplier");
         setFPS();
         CheckIfRestarted();
     }

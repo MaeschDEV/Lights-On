@@ -11,6 +11,9 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private GameManager manager;
     [SerializeField] private GameObject PauseBtn;
     [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject MainMenu;
+    [SerializeField] private GameObject GamemodeMenu;
+    [SerializeField] private GameObject DifficultyMenu;
 
     public void TogglePauseBtn()
     {
@@ -40,5 +43,32 @@ public class buttonManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Restarted", 0);
         SceneManager.LoadScene(0);
+    }
+
+    public void PlayBtn()
+    {
+        MainMenu.SetActive(false);
+        GamemodeMenu.SetActive(true);
+    }
+
+    public void GamemodeBtn(int index)
+    {
+        GamemodeMenu.SetActive(false);
+        DifficultyMenu.SetActive(true);
+        PlayerPrefs.SetInt("GameMode", index); //0 = TimeRush, 1 = Counter
+    }
+
+    public void DifficultyBtn(string index)
+    {
+        int width = int.Parse(index.Substring(0, 1));
+        int height = int.Parse(index.Substring(1, 1));
+        int time = int.Parse(index.Substring(2, 2));
+        int multiplier = int.Parse(index.Substring(4, 2));
+        DifficultyMenu.SetActive(false);
+        SceneManager.LoadScene(0);
+        PlayerPrefs.SetInt("width", width);
+        PlayerPrefs.SetInt("height", height);
+        PlayerPrefs.SetInt("time", time);
+        PlayerPrefs.SetInt("multiplier", multiplier);
     }
 }
