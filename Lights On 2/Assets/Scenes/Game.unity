@@ -1104,6 +1104,9 @@ MonoBehaviour:
   manager: {fileID: 1152549306}
   PauseBtn: {fileID: 1442336109}
   PauseMenu: {fileID: 372784603}
+  MainMenu: {fileID: 0}
+  GamemodeMenu: {fileID: 0}
+  DifficultyMenu: {fileID: 0}
 --- !u!1 &499678288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,6 +2068,7 @@ MonoBehaviour:
   TimeRush: 1
   maxTime: 10
   maxMoves: 10
+  maxMovesMultiplier: 0
 --- !u!1 &1167572204
 GameObject:
   m_ObjectHideFlags: 0
@@ -2996,7 +3000,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 695db7c0e378d714c8df1b05efbb4eaf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2dad41a97a3638b47a0b55808afca440, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3272,7 +3276,7 @@ GameObject:
   - component: {fileID: 1744796151}
   - component: {fileID: 1744796150}
   m_Layer: 5
-  m_Name: Settings
+  m_Name: Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
