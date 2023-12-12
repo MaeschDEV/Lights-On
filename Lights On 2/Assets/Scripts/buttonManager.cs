@@ -14,6 +14,7 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject GamemodeMenu;
     [SerializeField] private GameObject DifficultyMenu;
+    [SerializeField] private GameObject CreditsMenu;
 
     public void TogglePauseBtn()
     {
@@ -71,5 +72,33 @@ public class buttonManager : MonoBehaviour
         PlayerPrefs.SetInt("height", height);
         PlayerPrefs.SetInt("time", time);
         PlayerPrefs.SetFloat("multiplier", multiplier);
+    }
+
+    public void BackToMainMenu(GameObject thisMenu)
+    {
+        thisMenu.SetActive(false);
+        MainMenu.SetActive(true);
+    }
+
+    public void BackToPlayMenu(GameObject thisMenu)
+    {
+        thisMenu.SetActive(false);
+        GamemodeMenu.SetActive(true);
+    }
+
+    public void GoToCredits()
+    {
+        MainMenu.SetActive(false);
+        CreditsMenu.SetActive(true);
+    }
+
+    public void OpenLink(string url)
+    {
+        Application.OpenURL(url);
+    }
+
+    public void SwapToMainMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 }
