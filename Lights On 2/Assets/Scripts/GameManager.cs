@@ -29,8 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float spawnDelay;
     [SerializeField] private bool TimeRush;
     [SerializeField] private float maxTime;
-    [SerializeField] private int maxMoves;
-    [SerializeField] private int maxMovesMultiplier;
+    [SerializeField] private float maxMoves;
+    [SerializeField] private float maxMovesMultiplier;
 
     private void Start()
     {
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
             TimeRush = false;
         }
         maxTime = PlayerPrefs.GetInt("time");
-        maxMovesMultiplier = PlayerPrefs.GetInt("multiplier");
+        maxMovesMultiplier = PlayerPrefs.GetFloat("multiplier");
         setFPS();
         CheckIfRestarted();
     }
@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
             LoadOldBoard();
             backgroundObject.resizeBackground(PlayerPrefs.GetInt("pWidth", 4), PlayerPrefs.GetInt("pHeight", 4));
             cameraObject.relocateCamera(PlayerPrefs.GetInt("pWidth", 4), PlayerPrefs.GetInt("pHeight", 4));
+            maxMoves = PlayerPrefs.GetFloat("moves", 10);
         }
         else
         {
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
             SpawnSegments();
             backgroundObject.resizeBackground(width, height);
             cameraObject.relocateCamera(width, height);
-            StartCoroutine(ScrambleVisual(10, 20));
+            StartCoroutine(ScrambleVisual(width * 3, width * 6));
         }
     }
 
@@ -135,7 +136,9 @@ public class GameManager : MonoBehaviour
             int randomY = Random.Range(0, field.GetLength(1));
 
             ChangeState(randomX, randomY);
+            maxMoves = maxMoves + maxMovesMultiplier;
         }
+        maxMoves = Mathf.Round(maxMoves);
         canTouch = true;
         SaveCurrentBoard(width, height);
     }
@@ -144,6 +147,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("pWidth", pWidth);
         PlayerPrefs.SetInt("pHeight", pHeight);
+        PlayerPrefs.SetFloat("moves", maxMoves);
         for (int i = 0; i < field.GetLength(0); i++)
         {
             for (int j = 0; j < field.GetLength(1); j++)
@@ -238,28 +242,31 @@ public class GameManager : MonoBehaviour
 
     private void CheckBoard()
     {
-        hasWon = true;
-        for (int i = 0; i < field.GetLength(0); i++)
+        if (canTouch)
         {
-            for (int j = 0; j < field.GetLength(1); j++)
+            hasWon = true;
+            for (int i = 0; i < field.GetLength(0); i++)
             {
-                if (field[i, j].GetComponent<segment>().getState())
+                for (int j = 0; j < field.GetLength(1); j++)
                 {
-                    //This Segment is On!
-                    //Player hasn't won yet!
-                    hasWon = false;
-                    break;
-                }
-                else
-                {
-                    //This Segment is Off!
+                    if (field[i, j].GetComponent<segment>().getState())
+                    {
+                        //This Segment is On!
+                        //Player hasn't won yet!
+                        hasWon = false;
+                        break;
+                    }
+                    else
+                    {
+                        //This Segment is Off!
+                    }
                 }
             }
-        }
 
-        if(hasWon)
-        {
-            Victory();
+            if (hasWon)
+            {
+                Victory();
+            }
         }
     }
 
@@ -277,7 +284,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            textMeshProUGUI.text = "Moves Left: " + maxMoves;
+            textMeshProUGUI.text = "Moves Left: " + Mathf.Round(maxMoves);
             if (maxMoves <= 0 && !hasLost)
             {
                 Defeat();

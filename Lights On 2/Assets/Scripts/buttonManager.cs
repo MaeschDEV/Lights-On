@@ -63,12 +63,13 @@ public class buttonManager : MonoBehaviour
         int width = int.Parse(index.Substring(0, 1));
         int height = int.Parse(index.Substring(1, 1));
         int time = int.Parse(index.Substring(2, 2));
-        int multiplier = int.Parse(index.Substring(4, 2));
+        float multiplier = int.Parse(index.Substring(4, 2));
+        multiplier = multiplier / 10;
         DifficultyMenu.SetActive(false);
         SceneManager.LoadScene(0);
         PlayerPrefs.SetInt("width", width);
         PlayerPrefs.SetInt("height", height);
         PlayerPrefs.SetInt("time", time);
-        PlayerPrefs.SetInt("multiplier", multiplier);
+        PlayerPrefs.SetFloat("multiplier", multiplier);
     }
 }
