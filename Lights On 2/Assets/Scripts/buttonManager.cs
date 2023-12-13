@@ -21,9 +21,38 @@ public class buttonManager : MonoBehaviour
         setFPS();
     }
 
+    private void Update()
+    {
+        CheckBackButton();
+    }
+
     private void setFPS()
     {
         Application.targetFrameRate = 60;
+    }
+
+    private void CheckBackButton()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Escape!");
+            //User Pressed Back Button in any Form!
+            if (GamemodeMenu.activeInHierarchy)
+            {
+                //Zurück zum MainMenu
+                BackToMainMenu(GamemodeMenu);
+            }
+            if (DifficultyMenu.activeInHierarchy)
+            {
+                //Zurück zum GamemodeMenu
+                BackToPlayMenu(DifficultyMenu);
+            }
+            if (CreditsMenu.activeInHierarchy)
+            {
+                //Zurück zum MainMenu
+                BackToMainMenu(CreditsMenu);
+            }
+        }
     }
 
     public void TogglePauseBtn()
@@ -47,13 +76,13 @@ public class buttonManager : MonoBehaviour
     public void RestartGame()
     {
         PlayerPrefs.SetInt("Restarted", 1);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void NewGame()
     {
         PlayerPrefs.SetInt("Restarted", 0);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void PlayBtn()
@@ -77,7 +106,7 @@ public class buttonManager : MonoBehaviour
         float multiplier = int.Parse(index.Substring(4, 2));
         multiplier = multiplier / 10;
         DifficultyMenu.SetActive(false);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         PlayerPrefs.SetInt("width", width);
         PlayerPrefs.SetInt("height", height);
         PlayerPrefs.SetInt("time", time);
@@ -109,6 +138,6 @@ public class buttonManager : MonoBehaviour
 
     public void SwapToMainMenu()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
