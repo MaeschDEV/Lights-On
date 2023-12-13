@@ -46,13 +46,7 @@ public class GameManager : MonoBehaviour
         }
         maxTime = PlayerPrefs.GetInt("time");
         maxMovesMultiplier = PlayerPrefs.GetFloat("multiplier");
-        setFPS();
         CheckIfRestarted();
-    }
-
-    private void setFPS()
-    {
-        Application.targetFrameRate = 60;
     }
 
     private void CheckIfRestarted()

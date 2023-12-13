@@ -16,6 +16,16 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private GameObject DifficultyMenu;
     [SerializeField] private GameObject CreditsMenu;
 
+    private void Start()
+    {
+        setFPS();
+    }
+
+    private void setFPS()
+    {
+        Application.targetFrameRate = 60;
+    }
+
     public void TogglePauseBtn()
     {
         if(PauseBtnActive)
