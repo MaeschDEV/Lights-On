@@ -300,6 +300,8 @@ public class GameManager : MonoBehaviour
         canTouch = false;
         Debug.Log("You Won!");
         VictoryMenu.SetActive(true);
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlaySFX("Win");
     }
 
     private void Defeat()
@@ -307,6 +309,8 @@ public class GameManager : MonoBehaviour
         canTouch = false;
         Debug.Log("You Loose!");
         DefeatMenu.SetActive(true);
+        AudioManager.Instance.musicSource.Stop();
+        AudioManager.Instance.PlaySFX("Lose");
     }
 
     public GameObject[,] getField()

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class background : MonoBehaviour
 {
-    //Private
-
     //Private & Visible in Editor
     [Header("References")]
     [SerializeField] private GameObject TitleImage;

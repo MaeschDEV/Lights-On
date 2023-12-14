@@ -33,7 +33,7 @@ public class buttonManager : MonoBehaviour
 
     private void CheckBackButton()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex == 0)
         {
             Debug.Log("Escape!");
             //User Pressed Back Button in any Form!
@@ -41,17 +41,28 @@ public class buttonManager : MonoBehaviour
             {
                 //Zurück zum MainMenu
                 BackToMainMenu(GamemodeMenu);
+                AudioManager.Instance.PlaySFX("Click");
             }
-            if (DifficultyMenu.activeInHierarchy)
+            else if (DifficultyMenu.activeInHierarchy)
             {
                 //Zurück zum GamemodeMenu
                 BackToPlayMenu(DifficultyMenu);
+                AudioManager.Instance.PlaySFX("Click");
             }
-            if (CreditsMenu.activeInHierarchy)
+            else if (CreditsMenu.activeInHierarchy)
             {
                 //Zurück zum MainMenu
                 BackToMainMenu(CreditsMenu);
+                AudioManager.Instance.PlaySFX("Click");
             }
+            else
+            {
+                AudioManager.Instance.PlaySFX("Error");
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            AudioManager.Instance.PlaySFX("Error");
         }
     }
 
@@ -71,24 +82,30 @@ public class buttonManager : MonoBehaviour
             manager.setCanTouch(false);
             PauseMenu.SetActive(true);
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void RestartGame()
     {
         PlayerPrefs.SetInt("Restarted", 1);
         SceneManager.LoadScene(1);
+        AudioManager.Instance.PlaySFX("Click");
+        AudioManager.Instance.PlayMusic("Music");
     }
 
     public void NewGame()
     {
         PlayerPrefs.SetInt("Restarted", 0);
         SceneManager.LoadScene(1);
+        AudioManager.Instance.PlaySFX("Click");
+        AudioManager.Instance.PlayMusic("Music");
     }
 
     public void PlayBtn()
     {
         MainMenu.SetActive(false);
         GamemodeMenu.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void GamemodeBtn(int index)
@@ -96,6 +113,7 @@ public class buttonManager : MonoBehaviour
         GamemodeMenu.SetActive(false);
         DifficultyMenu.SetActive(true);
         PlayerPrefs.SetInt("GameMode", index); //0 = TimeRush, 1 = Counter
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void DifficultyBtn(string index)
@@ -111,33 +129,40 @@ public class buttonManager : MonoBehaviour
         PlayerPrefs.SetInt("height", height);
         PlayerPrefs.SetInt("time", time);
         PlayerPrefs.SetFloat("multiplier", multiplier);
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void BackToMainMenu(GameObject thisMenu)
     {
         thisMenu.SetActive(false);
         MainMenu.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void BackToPlayMenu(GameObject thisMenu)
     {
         thisMenu.SetActive(false);
         GamemodeMenu.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void GoToCredits()
     {
         MainMenu.SetActive(false);
         CreditsMenu.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void OpenLink(string url)
     {
         Application.OpenURL(url);
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void SwapToMainMenu()
     {
         SceneManager.LoadScene(0);
+        AudioManager.Instance.PlaySFX("Click");
+        AudioManager.Instance.PlayMusic("Music");
     }
 }
