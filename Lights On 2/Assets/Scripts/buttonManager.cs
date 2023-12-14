@@ -1,10 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class buttonManager : MonoBehaviour
 {
     //Private
     private bool PauseBtnActive = false;
+    private bool MusicBtnOn = true;
+    private bool SFXBtnOn = true;
 
     //Private & Visible in Editor
     [Header("References")]
@@ -14,7 +17,16 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private GameObject MainMenu;
     [SerializeField] private GameObject GamemodeMenu;
     [SerializeField] private GameObject DifficultyMenu;
+    [SerializeField] private GameObject OptionsMenu;
     [SerializeField] private GameObject CreditsMenu;
+    [SerializeField] private GameObject MusicBtn;
+    [SerializeField] private GameObject SFXBtn;
+    [SerializeField] private Sprite MusicOn;
+    [SerializeField] private Sprite MusicOff;
+    [SerializeField] private Sprite SFXOn;
+    [SerializeField] private Sprite SFXOff;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
 
     private void Start()
     {
@@ -146,6 +158,13 @@ public class buttonManager : MonoBehaviour
         AudioManager.Instance.PlaySFX("Click");
     }
 
+    public void GoToOptions()
+    {
+        MainMenu.SetActive(false);
+        OptionsMenu.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
+    }
+
     public void GoToCredits()
     {
         MainMenu.SetActive(false);
@@ -164,5 +183,43 @@ public class buttonManager : MonoBehaviour
         SceneManager.LoadScene(0);
         AudioManager.Instance.PlaySFX("Click");
         AudioManager.Instance.PlayMusic("Music");
+    }
+
+    public void ToggleMusic()
+    {
+        MusicBtnOn = !MusicBtnOn;
+        AudioManager.Instance.ToggleMusic();
+        if(MusicBtnOn)
+        {
+            MusicBtn.GetComponent<Image>().sprite = MusicOn;
+        }
+        else
+        {
+            MusicBtn.GetComponent<Image>().sprite = MusicOff;
+        }
+    }
+
+    public void ToggleSFX()
+    {
+        SFXBtnOn = !SFXBtnOn;
+        AudioManager.Instance.ToggleSFX();
+        if (SFXBtnOn)
+        {
+            SFXBtn.GetComponent<Image>().sprite = SFXOn;
+        }
+        else
+        {
+            SFXBtn.GetComponent<Image>().sprite = SFXOff;
+        }
+    }
+
+    public void MusicVolume()
+    {
+        AudioManager.Instance.MusicVolume(musicSlider.value);
+    }
+
+    public void SFXVolume()
+    {
+        AudioManager.Instance.SFXVolume(sfxSlider.value);
     }
 }
