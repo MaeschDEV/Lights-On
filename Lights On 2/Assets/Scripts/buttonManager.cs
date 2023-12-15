@@ -19,6 +19,7 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private GameObject DifficultyMenu;
     [SerializeField] private GameObject OptionsMenu;
     [SerializeField] private GameObject CreditsMenu;
+    [SerializeField] private GameObject LeaderboardMenu;
     [SerializeField] private GameObject MusicBtn;
     [SerializeField] private GameObject SFXBtn;
     [SerializeField] private Sprite MusicOn;
@@ -169,6 +170,13 @@ public class buttonManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         CreditsMenu.SetActive(true);
+        AudioManager.Instance.PlaySFX("Click");
+    }
+
+    public void GoToLeaderboard()
+    {
+        MainMenu.SetActive(false);
+        LeaderboardMenu.SetActive(true);
         AudioManager.Instance.PlaySFX("Click");
     }
 

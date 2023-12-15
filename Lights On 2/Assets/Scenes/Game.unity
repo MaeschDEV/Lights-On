@@ -1254,6 +1254,7 @@ MonoBehaviour:
   DifficultyMenu: {fileID: 0}
   OptionsMenu: {fileID: 0}
   CreditsMenu: {fileID: 0}
+  LeaderboardMenu: {fileID: 0}
   MusicBtn: {fileID: 0}
   SFXBtn: {fileID: 0}
   MusicOn: {fileID: 0}
@@ -2077,6 +2078,7 @@ MonoBehaviour:
   textMeshProUGUI: {fileID: 167779893}
   VictoryMenu: {fileID: 1327608883}
   DefeatMenu: {fileID: 190474774}
+  leaderboardManager: {fileID: 1278647877}
   segmentWidth: 1
   width: 4
   height: 4
@@ -2294,6 +2296,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1221711686}
   m_CullTransparentMesh: 1
+--- !u!1 &1278647876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1278647878}
+  - component: {fileID: 1278647877}
+  m_Layer: 0
+  m_Name: Leaderboard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1278647877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278647876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312abd8e9e405a24fab04ac58b433017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  module: {fileID: 0}
+--- !u!4 &1278647878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1278647876}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1319546637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3948,3 +3995,4 @@ SceneRoots:
   - {fileID: 406459243}
   - {fileID: 2134205673}
   - {fileID: 1843869503}
+  - {fileID: 1278647878}

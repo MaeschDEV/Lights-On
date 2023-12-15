@@ -306,17 +306,17 @@ public class GameManager : MonoBehaviour
         if(width == 4 && height == 4)
         {
             //Easy GameMode
-            leaderboardManager.AddScore("Easy");
+            leaderboardManager.AddScore("Easy", 1);
         }
         else if (width == 5 && height == 5)
         {
             //Normal GameMode
-            leaderboardManager.AddScore("Normal");
+            leaderboardManager.AddScore("Normal", 1);
         }
         else if (width == 6 && height == 6)
         {
             //Hard GameMode
-            leaderboardManager.AddScore("Hard");
+            leaderboardManager.AddScore("Hard", 1);
         }
     }
 

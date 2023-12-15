@@ -1,10 +1,23 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using Unity.Services.Leaderboards;
+using Unity.Services.Leaderboards.Models;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class leaderboardManager : MonoBehaviour
 {
+    List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
+
+    [SerializeField] private GameObject module;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GetScores("Easy");
+        }
+    }
+
     public async void AddScore(string id, int multiplier)
     {
         var playerEntry = await LeaderboardsService.Instance.AddPlayerScoreAsync(id, multiplier);
@@ -13,7 +26,14 @@ public class leaderboardManager : MonoBehaviour
 
     public async void GetScores(string id)
     {
-        var scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(id);
+        LeaderboardScoresPage scoresResponse = await LeaderboardsService.Instance.GetScoresAsync(id);
         Debug.Log(JsonConvert.SerializeObject(scoresResponse));
+
+        entries = scoresResponse.Results;
+
+        foreach (var entry in entries)
+        {
+            Debug.Log(entry.Rank);
+        }
     }
 }
