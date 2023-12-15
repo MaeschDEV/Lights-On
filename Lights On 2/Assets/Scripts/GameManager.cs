@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
     [SerializeField] private GameObject VictoryMenu;
     [SerializeField] private GameObject DefeatMenu;
+    [SerializeField] private leaderboardManager leaderboardManager;
 
     [Header("Values")]
     [SerializeField] private float segmentWidth;
@@ -302,6 +303,21 @@ public class GameManager : MonoBehaviour
         VictoryMenu.SetActive(true);
         AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlaySFX("Win");
+        if(width == 4 && height == 4)
+        {
+            //Easy GameMode
+            leaderboardManager.AddScore("Easy");
+        }
+        else if (width == 5 && height == 5)
+        {
+            //Normal GameMode
+            leaderboardManager.AddScore("Normal");
+        }
+        else if (width == 6 && height == 6)
+        {
+            //Hard GameMode
+            leaderboardManager.AddScore("Hard");
+        }
     }
 
     private void Defeat()
