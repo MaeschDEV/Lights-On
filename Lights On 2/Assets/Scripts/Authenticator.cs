@@ -1,5 +1,5 @@
+using System;
 using System.Threading.Tasks;
-using TMPro;
 using Unity.Services.Authentication;
 using Unity.Services.Authentication.PlayerAccounts;
 using Unity.Services.Core;
@@ -7,69 +7,52 @@ using UnityEngine;
 
 public class Authenticator : MonoBehaviour
 {
-    [SerializeField] TMP_InputField Inputusername;
-    [SerializeField] TMP_InputField Inputpassword;
-    [SerializeField] GameObject Info;
-    [SerializeField] TextMeshProUGUI InfoText;
-    [SerializeField] TextMeshProUGUI PlayerInfo;
-
     async void Awake()
     {
-        await UnityServices.InitializeAsync();
+        try
+        {
+            await UnityServices.InitializeAsync();
+        }
+        catch(Exception ex)
+        {
+            Debug.LogException(ex);
+        }
+        PlayerAccountService.Instance.SignedIn += SignInWithUnity;
     }
 
-    public async void SignUp()
-    {
-        await SignUpWithUsernamePassword(Inputusername.text, Inputpassword.text);
-    }
-
-    public async void SignIn()
-    {
-        await SignInWithUsernamePasswordAsync(Inputusername.text, Inputpassword.text);
-    }
-
-    async Task SignUpWithUsernamePassword(string username, string password)
+    private async void SignInWithUnity()
     {
         try
         {
-            await AuthenticationService.Instance.SignUpWithUsernamePasswordAsync(username, password);
-            InfoText.text = "SignUp is successful.";
-            Info.SetActive(true);
-            await AuthenticationService.Instance.UpdatePlayerNameAsync(username);
-            PlayerInfo.text = AuthenticationService.Instance.PlayerId + " | " + AuthenticationService.Instance.PlayerName;
+            var accessToken = PlayerAccountService.Instance.AccessToken;
+            await SignInWithUnityAsync(accessToken);
         }
-        catch (AuthenticationException ex)
+        catch(Exception ex)
         {
-            InfoText.text = ex.Message;
-            Info.SetActive(true);
-        }
-        catch (RequestFailedException ex)
-        {
-            InfoText.text = ex.Message;
-            Info.SetActive(true);
+            Debug.LogException(ex);
         }
     }
 
-    async Task SignInWithUsernamePasswordAsync(string username, string password)
+    public void InitSignIn()
+    {
+        PlayerAccountService.Instance.StartSignInAsync();
+    }
+
+
+    async Task SignInWithUnityAsync(string accessToken)
     {
         try
         {
-            await AuthenticationService.Instance.SignInWithUsernamePasswordAsync(username, password);
-            InfoText.text = "SignIn is successful.";
-            Info.SetActive(true);
-            await AuthenticationService.Instance.UpdatePlayerNameAsync(username);            
-            PlayerInfo.text = AuthenticationService.Instance.PlayerId + " | " + AuthenticationService.Instance.PlayerName;
+            await AuthenticationService.Instance.SignInWithUnityAsync(accessToken);
+            Debug.Log("SignIn is successful.");
         }
-        catch (AuthenticationException ex)
+        catch(AuthenticationException ex)
         {
-            InfoText.text = ex.Message;
-            Info.SetActive(true);
-
+            Debug.LogException(ex);
         }
-        catch (RequestFailedException ex)
+        catch(RequestFailedException ex)
         {
-            InfoText.text = ex.Message;
-            Info.SetActive(true);
+            Debug.LogException(ex);
         }
     }
 }
