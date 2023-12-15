@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Services.Leaderboards;
 using Unity.Services.Leaderboards.Models;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class leaderboardManager : MonoBehaviour
     List<LeaderboardEntry> entries = new List<LeaderboardEntry>();
 
     [SerializeField] private GameObject module;
+    [SerializeField] private GameObject moduleParent;
 
     private void Update()
     {
@@ -31,9 +33,13 @@ public class leaderboardManager : MonoBehaviour
 
         entries = scoresResponse.Results;
 
+        moduleParent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, entries.Count * 200);
         foreach (var entry in entries)
         {
-            Debug.Log(entry.Rank);
+            GameObject newModule = Instantiate(module, moduleParent.transform);
+            newModule.transform.Find("Rank").GetComponent<TextMeshProUGUI>().text = "#" + (entry.Rank + 1);
+            newModule.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = entry.PlayerName.Substring(0, entry.PlayerName.Length - 5);
+            newModule.transform.Find("Score").GetComponent<TextMeshProUGUI>().text = entry.Score.ToString();
         }
     }
 }

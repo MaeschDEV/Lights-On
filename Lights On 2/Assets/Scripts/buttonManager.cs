@@ -28,6 +28,7 @@ public class buttonManager : MonoBehaviour
     [SerializeField] private Sprite SFXOff;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private leaderboardManager leaderboardManager;
 
     private void Start()
     {
@@ -178,6 +179,7 @@ public class buttonManager : MonoBehaviour
         MainMenu.SetActive(false);
         LeaderboardMenu.SetActive(true);
         AudioManager.Instance.PlaySFX("Click");
+        leaderboardManager.GetScores("Easy");
     }
 
     public void OpenLink(string url)
