@@ -179,7 +179,7 @@ public class buttonManager : MonoBehaviour
         MainMenu.SetActive(false);
         LeaderboardMenu.SetActive(true);
         AudioManager.Instance.PlaySFX("Click");
-        leaderboardManager.GetScores("Easy");
+        leaderboardManager.GetScoresEasy();
     }
 
     public void OpenLink(string url)

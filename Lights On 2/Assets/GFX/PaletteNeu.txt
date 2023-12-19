@@ -1,0 +1,3 @@
+Window Background:		#283c50
+Window Background Light:	#2e465d
+Selected:			#28a05a
