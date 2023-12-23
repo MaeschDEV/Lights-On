@@ -5389,7 +5389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &640353696
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9993,7 +9993,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA92023 by MaeschDEV | Version 0.0.14"
+  m_text: "\xA92023 by MaeschDEV | Version 1.0.19"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 185c1f61c3fa1ce459b8d6c59389aa9f, type: 2}
   m_sharedMaterial: {fileID: 2598406015946365213, guid: 185c1f61c3fa1ce459b8d6c59389aa9f, type: 2}
@@ -16715,7 +16715,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1968489097
 RectTransform:
   m_ObjectHideFlags: 0
