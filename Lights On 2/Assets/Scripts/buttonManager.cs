@@ -232,4 +232,32 @@ public class buttonManager : MonoBehaviour
     {
         AudioManager.Instance.SFXVolume(sfxSlider.value);
     }
+
+    public void setMusicButton(bool value)
+    {
+        MusicBtnOn = !value;
+
+        if (MusicBtnOn)
+        {
+            MusicBtn.GetComponent<Image>().sprite = MusicOn;
+        }
+        else
+        {
+            MusicBtn.GetComponent<Image>().sprite = MusicOff;
+        }
+    }
+
+    public void setSFXButton(bool value)
+    {
+        SFXBtnOn = !value;
+
+        if (SFXBtnOn)
+        {
+            SFXBtn.GetComponent<Image>().sprite = SFXOn;
+        }
+        else
+        {
+            SFXBtn.GetComponent<Image>().sprite = SFXOff;
+        }
+    }
 }
