@@ -69,6 +69,18 @@ public class buttonManager : MonoBehaviour
                 BackToMainMenu(CreditsMenu);
                 AudioManager.Instance.PlaySFX("Click");
             }
+            else if (LeaderboardMenu.activeInHierarchy)
+            {
+                //Zurück zum MainMenu
+                BackToMainMenu(LeaderboardMenu);
+                AudioManager.Instance.PlaySFX("Click");
+            }
+            else if (OptionsMenu.activeInHierarchy)
+            {
+                //Zurück zum MainMenu
+                BackToMainMenu(OptionsMenu);
+                AudioManager.Instance.PlaySFX("Click");
+            }
             else
             {
                 AudioManager.Instance.PlaySFX("Error");
@@ -182,6 +194,24 @@ public class buttonManager : MonoBehaviour
         leaderboardManager.GetScoresEasy();
     }
 
+    public void LeaderboardEasy()
+    {
+        leaderboardManager.GetScoresEasy();
+        AudioManager.Instance.PlaySFX("Click");
+    }
+
+    public void LeaderboardNormal()
+    {
+        leaderboardManager.GetScoresNormal();
+        AudioManager.Instance.PlaySFX("Click");
+    }
+
+    public void LeaderboardHard()
+    {
+        leaderboardManager.GetScoresHard();
+        AudioManager.Instance.PlaySFX("Click");
+    }
+
     public void OpenLink(string url)
     {
         Application.OpenURL(url);
@@ -207,6 +237,7 @@ public class buttonManager : MonoBehaviour
         {
             MusicBtn.GetComponent<Image>().sprite = MusicOff;
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void ToggleSFX()
@@ -221,6 +252,7 @@ public class buttonManager : MonoBehaviour
         {
             SFXBtn.GetComponent<Image>().sprite = SFXOff;
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void MusicVolume()

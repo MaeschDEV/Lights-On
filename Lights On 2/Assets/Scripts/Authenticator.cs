@@ -30,8 +30,20 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "Exception: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
         PlayerAccountService.Instance.SignedIn += SignInWithUnity;
+    }
+
+    private void Start()
+    {
+        if (!AuthenticationService.Instance.IsSignedIn)
+        {
+            if (AuthenticationService.Instance.SessionTokenExists)
+            {
+                InitSignIn();
+            }
+        }
     }
 
     private async void SignInWithUnity()
@@ -47,6 +59,7 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "Exception: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
     }
 
@@ -60,16 +73,6 @@ public class Authenticator : MonoBehaviour
                 {
                     await AuthenticationService.Instance.SignInAnonymouslyAsync();
                     Debug.Log("SignIn is successful. (Anonymously)");
-                    if (AuthenticationService.Instance.PlayerName == null)
-                    {
-                        mainMenu.SetActive(false);
-                        changeUsernameMenu.SetActive(true);
-                    }
-                    else
-                    {
-                        mainMenu.SetActive(false);
-                        accountMenu.SetActive(true);
-                    }
                     playerInfoText.text = AuthenticationService.Instance.PlayerId + " | " + AuthenticationService.Instance.PlayerName;
                     playerNameText.text = AuthenticationService.Instance.PlayerName;
                 }
@@ -85,6 +88,7 @@ public class Authenticator : MonoBehaviour
                         changeUsernameMenu.SetActive(false);
                         errorMenu.SetActive(true);
                         errorText.text = "Exception: " + e.Message;
+                        AudioManager.Instance.PlaySFX("Error");
                     }
                 }
             }
@@ -100,6 +104,7 @@ public class Authenticator : MonoBehaviour
                     changeUsernameMenu.SetActive(false);
                     errorMenu.SetActive(true);
                     errorText.text = "Exception: " + ex.Message;
+                    AudioManager.Instance.PlaySFX("Error");
                 }
             }
         }
@@ -108,6 +113,7 @@ public class Authenticator : MonoBehaviour
             mainMenu.SetActive(false);
             accountMenu.SetActive(true);
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public async void ChangeUsername()
@@ -126,6 +132,7 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "Exception: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
     }
 
@@ -142,7 +149,9 @@ public class Authenticator : MonoBehaviour
             accountMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "Exception: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public void Logout()
@@ -161,7 +170,9 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "Exception: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
     public async void Delete()
@@ -178,7 +189,9 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "Exception: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
+        AudioManager.Instance.PlaySFX("Click");
     }
 
 
@@ -207,6 +220,7 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "AuthenticationException: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
         catch(RequestFailedException ex)
         {
@@ -214,6 +228,7 @@ public class Authenticator : MonoBehaviour
             changeUsernameMenu.SetActive(false);
             errorMenu.SetActive(true);
             errorText.text = "RequestFailedException: " + ex.Message;
+            AudioManager.Instance.PlaySFX("Error");
         }
     }
 }

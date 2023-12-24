@@ -52,7 +52,7 @@ public class leaderboardManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        LeaderboardScoresPage scoresResponse = await LeaderboardsService.Instance.GetScoresAsync("Easy");
+        LeaderboardScoresPage scoresResponse = await LeaderboardsService.Instance.GetScoresAsync("Normal");
         Debug.Log(JsonConvert.SerializeObject(scoresResponse));
 
         entries = scoresResponse.Results;
@@ -77,7 +77,7 @@ public class leaderboardManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        LeaderboardScoresPage scoresResponse = await LeaderboardsService.Instance.GetScoresAsync("Easy");
+        LeaderboardScoresPage scoresResponse = await LeaderboardsService.Instance.GetScoresAsync("Hard");
         Debug.Log(JsonConvert.SerializeObject(scoresResponse));
 
         entries = scoresResponse.Results;

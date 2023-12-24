@@ -9,11 +9,6 @@ public class tabGroup : MonoBehaviour
     private tabButton selectedTab;
     [SerializeField] private List<GameObject> objectsToSwap;
 
-    private void Start()
-    {
-        ResetTabs();
-    }
-
     public void Subscribe(tabButton button)
     {
         if(tabButtons == null)
@@ -26,7 +21,15 @@ public class tabGroup : MonoBehaviour
 
     public void OnTabSelected(tabButton button)
     {
+        if(selectedTab != null)
+        {
+            selectedTab.Deselect();
+        }
+
         selectedTab = button;
+
+        selectedTab.Select();
+
         ResetTabs();
         button.background.sprite = tabActive;
         button.setTransform(600);
@@ -48,16 +51,8 @@ public class tabGroup : MonoBehaviour
     {
         foreach(tabButton button in tabButtons)
         {
-            Debug.Log(button.gameObject.name);
             if(selectedTab != null && button == selectedTab)
             {
-                button.background.sprite = tabActive;
-                button.setTransform(600);
-                continue;
-            }
-            else if(selectedTab == null && button.gameObject.name == "Tab")
-            {
-                selectedTab = button;
                 button.background.sprite = tabActive;
                 button.setTransform(600);
                 continue;
