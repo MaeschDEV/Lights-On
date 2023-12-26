@@ -301,7 +301,6 @@ public class GameManager : MonoBehaviour
         canTouch = false;
         Debug.Log("You Won!");
         VictoryMenu.SetActive(true);
-        AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlaySFX("Win");
         if(width == 4 && height == 4)
         {
@@ -325,7 +324,6 @@ public class GameManager : MonoBehaviour
         canTouch = false;
         Debug.Log("You Loose!");
         DefeatMenu.SetActive(true);
-        AudioManager.Instance.musicSource.Stop();
         AudioManager.Instance.PlaySFX("Lose");
     }
 

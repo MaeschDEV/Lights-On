@@ -116,7 +116,6 @@ public class buttonManager : MonoBehaviour
         PlayerPrefs.SetInt("Restarted", 1);
         SceneManager.LoadScene(1);
         AudioManager.Instance.PlaySFX("Click");
-        AudioManager.Instance.PlayMusic("Music");
     }
 
     public void NewGame()
@@ -124,7 +123,6 @@ public class buttonManager : MonoBehaviour
         PlayerPrefs.SetInt("Restarted", 0);
         SceneManager.LoadScene(1);
         AudioManager.Instance.PlaySFX("Click");
-        AudioManager.Instance.PlayMusic("Music");
     }
 
     public void PlayBtn()
@@ -222,7 +220,6 @@ public class buttonManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
         AudioManager.Instance.PlaySFX("Click");
-        AudioManager.Instance.PlayMusic("Music");
     }
 
     public void ToggleMusic()
