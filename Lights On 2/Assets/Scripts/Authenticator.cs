@@ -14,9 +14,13 @@ public class Authenticator : MonoBehaviour
     [SerializeField] private GameObject changeUsernameMenu;
     [SerializeField] private GameObject errorMenu;
     [SerializeField] private GameObject accountMenu;
+    [SerializeField] private GameObject LoginButton;
+    [SerializeField] private GameObject BalanceDisplayButton;
     [SerializeField] private TextMeshProUGUI errorText;
     [SerializeField] private TextMeshProUGUI playerInfoText;
     [SerializeField] private TextMeshProUGUI playerNameText;
+    [SerializeField] private TextMeshProUGUI balance;
+    [SerializeField] private EconomyManager economyManager;
 
     async void Awake()
     {
@@ -43,6 +47,14 @@ public class Authenticator : MonoBehaviour
             {
                 InitSignIn();
             }
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            economyManager.returnCurrencyBalance("COIN");
         }
     }
 
@@ -75,6 +87,8 @@ public class Authenticator : MonoBehaviour
                     Debug.Log("SignIn is successful. (Anonymously)");
                     playerInfoText.text = AuthenticationService.Instance.PlayerId + " | " + AuthenticationService.Instance.PlayerName;
                     playerNameText.text = AuthenticationService.Instance.PlayerName;
+                    LoginButton.SetActive(false);
+                    BalanceDisplayButton.SetActive(true);
                 }
                 catch
                 {
@@ -213,6 +227,8 @@ public class Authenticator : MonoBehaviour
             }
             playerInfoText.text = AuthenticationService.Instance.PlayerId + " | " + AuthenticationService.Instance.PlayerName;
             playerNameText.text = AuthenticationService.Instance.PlayerName;
+            LoginButton.SetActive(false);
+            BalanceDisplayButton.SetActive(true);
         }
         catch(AuthenticationException ex)
         {

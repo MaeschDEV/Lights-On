@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject VictoryMenu;
     [SerializeField] private GameObject DefeatMenu;
     [SerializeField] private leaderboardManager leaderboardManager;
+    [SerializeField] private EconomyManager economyManager;
 
     [Header("Values")]
     [SerializeField] private float segmentWidth;
@@ -306,16 +307,19 @@ public class GameManager : MonoBehaviour
         {
             //Easy GameMode
             leaderboardManager.AddScore("Easy", 1);
+            economyManager.addCurrencyBalance("COIN", 10);
         }
         else if (width == 5 && height == 5)
         {
             //Normal GameMode
             leaderboardManager.AddScore("Normal", 1);
+            economyManager.addCurrencyBalance("COIN", 20);
         }
         else if (width == 6 && height == 6)
         {
             //Hard GameMode
             leaderboardManager.AddScore("Hard", 1);
+            economyManager.addCurrencyBalance("COIN", 40);
         }
     }
 
